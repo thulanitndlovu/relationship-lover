@@ -7,6 +7,24 @@ from django.contrib.auth.forms import AuthenticationForm
 from .models import Profile
 from .forms import ProfileForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.contrib.auth import login, authenticate
+
+
+def user_register(request):
+    # ...registration logic...
+    if form.is_valid():
+        # ...save user...
+        return redirect('home')  # Replace 'home' with your actual home page url name
+    return render(request), 'home/registration.html', {'form': form}
+
+def login_or_register(request):
+    return render(request, 'home/login_or_register.html')
+
+def welcome(request):
+    return render(request, 'home/welcome.html')
 
 @login_required
 def profile_view(request):
