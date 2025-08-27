@@ -1,24 +1,20 @@
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Profile
-from .forms import ProfileForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.shortcuts import render
-from django.shortcuts import redirect
-from django.contrib.auth import login, authenticate
-
 
 def user_register(request):
-    # ...registration logic...
-    if form.is_valid():
-        # ...save user...
-        return redirect('home')  # Replace 'home' with your actual home page url name
-    return render(request), 'home/registration.html', {'form': form}
+    form = CustomUserCreationForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Account created successfully! You can now log in.")
+            return redirect('login')
+    return render(request, 'home/registration.html', {'form': form})
 
 def login_or_register(request):
     return render(request, 'home/login_or_register.html')
@@ -50,7 +46,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('index')  # or any protected page
+            return redirect('index')
     else:
         form = AuthenticationForm()
     return render(request, 'home/login.html', {'form': form})
@@ -68,8 +64,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Account created successfully! You can now log in.")
-            return redirect('login')  # Make sure 'login' is a valid URL name in your urls.py
+            return redirect('login')
     else:
         form = CustomUserCreationForm()
-    
     return render(request, 'home/signup.html', {'form': form})
