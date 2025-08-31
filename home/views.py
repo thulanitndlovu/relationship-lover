@@ -8,12 +8,14 @@ from .models import Profile
 from django.contrib.auth.decorators import login_required
 
 def user_register(request):
-    form = CustomUserCreationForm(request.POST or None)
     if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "Account created successfully! You can now log in.")
             return redirect('login')
+    else:
+        form = CustomUserCreationForm()
     return render(request, 'home/registration.html', {'form': form})
 
 def login_or_register(request):

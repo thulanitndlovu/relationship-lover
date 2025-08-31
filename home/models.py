@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='home_profile')
     surname = models.CharField(max_length=100)
-    age = models.PositiveIntegerField()
+    age = models.PositiveIntegerField(null=True,blank=True)
     location = models.CharField(max_length=100)
     province = models.CharField(max_length=100)
     employment = models.CharField(max_length=100)
