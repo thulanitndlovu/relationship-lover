@@ -10,6 +10,10 @@ class Profile(models.Model):
     province = models.CharField(max_length=100)
     employment = models.CharField(max_length=100)
     show_profile = models.BooleanField(default=True)  # To hide/unhide profiles later
+    bio = models.TextField(blank=True, null=True)
+    profile_pic = models.ImageField(upload_to='profile_pics/', default='default.jpg')
+
+
 
     def _str_(self):
         return f"{self.user.username}'s Profile"

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browse Profiles</title>
+    <style>
+        body {
+            background: #fff0f3;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #ff4d6d;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 26px;
+        }
+
+        .profiles {
+            width: 90%;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff4d6d;
+        }
+
+        .view-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #ff4d6d;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .view-btn:hover {
+            background: #c9184a;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    🌹 Browse Profiles 🌹
+</header>
+
+<div class="profiles">
+    {% for p in profiles %}
+    <div class="card">
+
+        <!-- Correct profile picture -->
+        <img src="{{ p.profile_pic.url }}" alt="Profile Picture">
+
+        <!-- Correct fields from your Profile model -->
+        <h3>{{ p.user.username }} {{ p.surname }}</h3>
+        <p>Age: {{ p.age }}</p>
+        <p>Location: {{ p.location }}</p>
+        <p>Province: {{ p.province }}</p>
+        <p>Employment: {{ p.employment }}</p>
+        <p>{{ p.bio|truncatewords:10 }}</p>
+
+        <!-- View button -->
+        <a class="view-btn" href="/view/{{ p.id }}/">View Profile</a>
+
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
