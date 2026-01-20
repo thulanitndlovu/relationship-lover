@@ -31,6 +31,8 @@ def user_register(request):
 def welcome(request):
     return render(request, 'home/welcome.html')
 
+def index(request):
+    return render(request, 'home/index.html')
 
 # Main page (no login needed)
 def main(request):
