@@ -55,6 +55,26 @@
         .view-btn:hover {
             background: #c9184a;
         }
+
+        .like-btn {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .message-btn {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: #6c63ff;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -64,26 +84,48 @@
     🌹 Browse Profiles 🌹
 </header>
 
+<div style="text-align:center;margin-top:20px;">
+    <form method="GET">
+        <input type="text" name="search" placeholder="Search name or location"
+        style="padding:10px;width:250px;border-radius:6px;border:1px solid #ccc;">
+        
+        <button type="submit"
+        style="padding:10px 15px;background:#ff4d6d;color:white;border:none;border-radius:6px;">
+        Search
+        </button>
+    </form>
+</div>
+
 <div class="profiles">
-    {% for p in profiles %}
-    <div class="card">
 
-        <!-- Correct profile picture -->
-        <img src="{{ p.profile_pic.url }}" alt="Profile Picture">
+{% for p in profiles %}
+{% if p.show_profile %}
 
-        <!-- Correct fields from your Profile model -->
-        <h3>{{ p.user.username }} {{ p.surname }}</h3>
-        <p>Age: {{ p.age }}</p>
-        <p>Location: {{ p.location }}</p>
-        <p>Province: {{ p.province }}</p>
-        <p>Employment: {{ p.employment }}</p>
-        <p>{{ p.bio|truncatewords:10 }}</p>
+<div class="card">
 
-        <!-- View button -->
-        <a class="view-btn" href="/view/{{ p.id }}/">View Profile</a>
+<img src="{{ p.profile_pic.url }}" alt="Profile Picture">
 
-    </div>
-    {% endfor %}
+<h3>{{ p.user.username }} {{ p.surname }}</h3>
+<p>Age: {{ p.age }}</p>
+<p>Location: {{ p.location }}</p>
+<p>Province: {{ p.province }}</p>
+<p>Employment: {{ p.employment }}</p>
+<p>{{ p.bio|truncatewords:10 }}</p>
+
+<a class="view-btn" href="/view/{{ p.id }}/">View Profile</a>
+
+<form method="POST" action="/like/{{ p.user.id }}/">
+{% csrf_token %}
+<button class="like-btn">❤️ Like</button>
+</form>
+
+<a class="message-btn" href="/message/{{ p.user.id }}/">💬 Message</a>
+
+</div>
+
+{% endif %}
+{% endfor %}
+
 </div>
 
 </body>
