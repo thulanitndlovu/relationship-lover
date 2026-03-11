@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>View Profile</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#fff0f3;
+margin:0;
+}
+
+.container{
+width:500px;
+margin:40px auto;
+background:white;
+padding:25px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+img{
+width:150px;
+height:150px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid #ff4d6d;
+}
+
+button{
+background:#ff4d6d;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:6px;
+cursor:pointer;
+}
+
+a{
+text-decoration:none;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+{% if profile.profile_pic %}
+<img src="{{ profile.profile_pic.url }}">
+{% endif %}
+
+<h2>{{ profile.user.username }} {{ profile.surname }}</h2>
+
+<p><b>Age:</b> {{ profile.age }}</p>
+<p><b>Location:</b> {{ profile.location }}</p>
+<p><b>Province:</b> {{ profile.province }}</p>
+<p><b>Employment:</b> {{ profile.employment }}</p>
+
+<p>{{ profile.bio }}</p>
+
+<br>
+
+<a href="/browse/">
+<button>⬅ Back to Profiles</button>
+</a>
+
+</div>
+
+</body>
+</html>
