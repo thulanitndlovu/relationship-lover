@@ -17,18 +17,18 @@ class Profile(models.Model):
         return f"{self.user.username}'s Profile"
     
     class Like(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes_sent")
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes_received")
-    created_at = models.DateTimeField(auto_now_add=True)
+        sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes_sent")
+        receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes_received")
+        created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.sender} likes {self.receiver}"
     
     class Message(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_received")
-    message = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+        sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")
+        receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_received")
+        message = models.TextField()
+        timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Message from {self.sender} to {self.receiver}"
