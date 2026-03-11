@@ -71,10 +71,6 @@ def profile_view(request):
     profile = getattr(request.user, 'profile', None)
     return render(request, 'home/profile_view.html', {'profile': profile})
 
-def browse_profiles(request):
-    profiles = Profile.objects.all()
-    return render(request, 'home/browser.html', {'profiles':profiles})
-
 # Profile edit (no login required for now)
 def profile_edit(request):
     profile = getattr(request.user, 'profile', None)
@@ -94,3 +90,5 @@ def browse_profiles(request):
 
 def mainpage(request):
     return render(request, "home/main.html")
+
+
